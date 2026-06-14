@@ -1,59 +1,155 @@
-# Photogrammetry Pipeline
+# Камерын дүрсээс 3D модел загварчлах систем
 
-Desktop GUI for photogrammetry reconstruction using **COLMAP** (sparse) + **OpenMVS** (dense/mesh/texture).
+## Төслийн товч танилцуулга
 
-## Pipeline
+Энэхүү төсөл нь олон өнцгөөс авсан 2D зургуудыг ашиглан автомат байдлаар 3D загвар үүсгэх систем юм. Систем нь COLMAP болон OpenMVS хэрэгслүүдийг ашиглан Structure-from-Motion (SfM) болон Multi-View Stereo (MVS) аргуудаар 3D реконструкц хийдэг.
 
+Хэрэглэгч зураг оруулсны дараа бүх реконструкцийн үе шатуудыг график хэрэглэгчийн интерфейс (GUI)-ээр удирдан ажиллуулах боломжтой бөгөөд эцэст нь текстуртай 3D загвар үүсгэнэ.
+
+---
+
+## Оюутны мэдээлэл
+
+| Талбар        | Мэдээлэл                                   |
+| ------------- |--------------------------------------------|
+| Сургууль      | Шинэ Монгол Технологийн Коллеж             |
+| Тэнхим        | Компьютерын Ухааны Тэнхим                  |
+| Сэдэв         | Камерын дүрсээс 3D модел загварчлах систем |
+| Оюутан        | Б. Эрдэнэбаяр                              |
+| Оюутны дугаар | s21c008b                                   |
+| Он            | 2026                                       |
+
+---
+
+## Ашигласан технологи
+
+* Python
+* PyQt5
+* COLMAP
+* OpenMVS
+* YAML
+* OpenCV
+* NumPy
+
+---
+
+## Системийн архитектур
+
+Систем нь дараах үндсэн үе шатуудаас бүрдэнэ.
+
+```text
+Зураг оруулах
+      ↓
+Feature Extraction
+      ↓
+Feature Matching
+      ↓
+Sparse Reconstruction (COLMAP)
+      ↓
+Dense Reconstruction (OpenMVS)
+      ↓
+Mesh Generation
+      ↓
+Mesh Refinement
+      ↓
+Texture Mapping
+      ↓
+OBJ / PLY форматтай 3D загвар
 ```
-Images → COLMAP → Sparse Model → InterfaceCOLMAP → OpenMVS Scene
-       → DensifyPointCloud → ReconstructMesh → RefineMesh → TextureMesh
-       → Dense Point Cloud + Mesh + Textured OBJ
-```
 
-## Prerequisites
+---
 
-1. **COLMAP** — https://colmap.github.io/install.html
-2. **OpenMVS** — https://github.com/cdcseacave/openMVS/wiki/Building
+## Үндсэн функцууд
 
-## Setup
+* Олон зураг импортлох
+* COLMAP ашиглан Sparse Reconstruction хийх
+* OpenMVS ашиглан Dense Reconstruction хийх
+* Mesh үүсгэх
+* Mesh сайжруулах
+* Texture Mapping хийх
+* OBJ болон PLY формат экспортлох
+* GUI ашиглан бүх pipeline-г удирдах
+
+---
+
+## Hardware Requirements
+
+* Intel Core i5 эсвэл түүнээс дээш
+* 16GB RAM ба түүнээс дээш
+* NVIDIA GPU (сонголтоор)
+* 20GB сул дискний зай
+
+---
+
+## Software Requirements
+
+* Windows 10 / Windows 11
+* Python 3.10+
+* COLMAP
+* OpenMVS
+
+---
+
+## Суулгах заавар
+
+### Шаардлагатай програмууд
+
+1. COLMAP суулгах
+2. OpenMVS суулгах
+3. Python сангууд суулгах
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Configuration
+### Тохиргоо
 
-Edit `config/config.yaml` and update the paths to your COLMAP and OpenMVS executables:
+`config/config.yaml` файлд COLMAP болон OpenMVS-ийн замыг тохируулна.
 
 ```yaml
 executables:
   colmap: "C:/Program Files/COLMAP/COLMAP.bat"
   interface_colmap: "C:/OpenMVS/bin/InterfaceCOLMAP.exe"
-  densify: "C:/OpenMVS/bin/DensifyPointCloud.exe"
-  reconstruct_mesh: "C:/OpenMVS/bin/ReconstructMesh.exe"
-  refine_mesh: "C:/OpenMVS/bin/RefineMesh.exe"
-  texture_mesh: "C:/OpenMVS/bin/TextureMesh.exe"
 ```
 
-## Run
+---
+
+## Ажиллуулах
 
 ```bash
 python main.py
 ```
 
-## Output
+---
 
-After a successful run, outputs are collected in `workspace/output/`:
+## Гаралтын файлууд
 
-| File | Description |
-|------|-------------|
-| `dense_point_cloud.ply` | Dense 3D point cloud |
-| `mesh.ply` | Raw mesh |
-| `textured_mesh.obj` | Final textured mesh |
-| `textured_mesh.mtl` | Material file |
+Систем амжилттай ажилласны дараа дараах файлууд үүснэ.
 
-## Notes
+| Файл                  | Тайлбар                  |
+| --------------------- | ------------------------ |
+| dense_point_cloud.ply | Нягт цэгэн үүл           |
+| mesh.ply              | 3D торон загвар          |
+| textured_mesh.obj     | Текстуртай эцсийн загвар |
+| textured_mesh.mtl     | Материалын мэдээлэл      |
 
-- GPU support requires COLMAP and OpenMVS compiled with CUDA.
-- Use **absolute paths** for image folders on Windows.
-- The `Refine Mesh` and `Texture Mesh` steps can be disabled in the GUI.
+---
+
+## Docs
+
+Системийн архитектурын зураг, интерфейсийн зураг, туршилтын үр дүн болон демо материалуудыг `/docs` хавтаст байршуулсан.
+
+---
+
+## Репозиторийн бүтэц
+
+```text
+project/
+├── src/
+├── config/
+├── docs/
+├── workspace/
+├── requirements.txt
+├── main.py
+└── README.md
+```

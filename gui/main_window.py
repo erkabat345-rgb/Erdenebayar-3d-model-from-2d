@@ -270,7 +270,6 @@ class MainWindow(QMainWindow):
 
         self.view_3d_btn = QPushButton("🔷  View 3D Result")
         self.view_3d_btn.setObjectName("view_btn")
-        self.view_3d_btn.setVisible(False)
         self.view_3d_btn.clicked.connect(self._on_view_3d)
 
         self.start_btn = QPushButton("▶  Start Reconstruction")
@@ -438,7 +437,6 @@ class MainWindow(QMainWindow):
         self.start_btn.setEnabled(False)
         self.abort_btn.setEnabled(True)
         self.clean_btn.setEnabled(False)
-        self.view_3d_btn.setVisible(False)
         self._log("Starting pipeline...")
 
         self.worker = WorkerThread(
@@ -508,7 +506,6 @@ class MainWindow(QMainWindow):
         self._log(f"\n✅ Done! Output saved to: {output_dir}")
         self._restore_buttons()
         self.output_dir = output_dir
-        self.view_3d_btn.setVisible(True)
 
     def _on_error(self, msg):
         self.status_label.setText("❌ Error — see log for details")
@@ -544,19 +541,49 @@ class MainWindow(QMainWindow):
         self.clean_btn.setEnabled(True)
 
     def _on_view_3d(self):
+        # Resolve output dir: prefer last run's result, then workspace/output
         output_dir = getattr(self, "output_dir", None)
         if not output_dir or not Path(output_dir).exists():
-            QMessageBox.warning(self, "No Output", "Pipeline output directory not found.")
+            workspace = self.workspace_dir_edit.text().strip()
+            if workspace:
+                candidate = Path(workspace) / "output"
+                if candidate.exists():
+                    output_dir = str(candidate)
+
+        if not output_dir or not Path(output_dir).exists():
+            QMessageBox.warning(
+                self, "No Output Folder",
+                "No output folder found.\n\n"
+                "Set a workspace directory whose 'output' subfolder contains "
+                "textured_mesh.obj (and optionally dense_point_cloud.ply).",
+            )
             return
 
-        self.view_3d_btn.setEnabled(False)
-        self.status_label.setText("Computing metrics...")
+        mesh_path = Path(output_dir) / "textured_mesh.obj"
+        if not mesh_path.exists():
+            mesh_path = Path(output_dir) / "textured_mesh.ply"
+        if not mesh_path.exists():
+            QMessageBox.warning(
+                self, "No Mesh Found",
+                f"No mesh file found in:\n{output_dir}\n\n"
+                "Expected: textured_mesh.obj or textured_mesh.ply",
+            )
+            return
 
-        self.viewer_thread = ViewerThread(output_dir)
-        self.viewer_thread.log.connect(self._log)
-        self.viewer_thread.finished.connect(self._on_metrics_done)
-        self.viewer_thread.error.connect(self._on_metrics_error)
-        self.viewer_thread.start()
+        pcd_path = Path(output_dir) / "dense_point_cloud.ply"
+        if pcd_path.exists():
+            # Full evaluation with Chamfer / RMSE metrics
+            self.view_3d_btn.setEnabled(False)
+            self.status_label.setText("Computing metrics...")
+            self.viewer_thread = ViewerThread(output_dir)
+            self.viewer_thread.log.connect(self._log)
+            self.viewer_thread.finished.connect(self._on_metrics_done)
+            self.viewer_thread.error.connect(self._on_metrics_error)
+            self.viewer_thread.start()
+        else:
+            # No point cloud — open viewer without metrics
+            self._log("[3D Viewer] dense_point_cloud.ply not found — showing mesh without metrics.")
+            show_mesh_with_metrics(str(mesh_path), {})
 
     def _on_metrics_done(self, metrics: dict, mesh_path: str):
         cd = metrics.get("chamfer_distance", 0.0)

@@ -10,9 +10,9 @@ paths:
   workspace_dir: data/workspace
 settings:
   matching_method: sequential
-  run_refine: true
-  run_texture: true
-  seq_overlap: 5
+  run_refine: false
+  run_texture: false
+  seq_overlap: 20
   use_gpu: true
-  use_ml_features: false
+  use_ml_features: true
   vocab_tree_path: ''

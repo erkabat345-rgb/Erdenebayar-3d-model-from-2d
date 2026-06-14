@@ -1,0 +1,3 @@
+Pipeline elapsed time : 10:27 (627.69s)
+Feature method        : SIFT (exhaustive)
+Image directory       : C:\Users\erkab\Desktop\thesis_test\Datasets\Temple_ring

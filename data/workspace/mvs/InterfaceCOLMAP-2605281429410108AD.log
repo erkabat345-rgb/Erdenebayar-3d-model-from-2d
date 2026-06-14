@@ -1,0 +1,22 @@
+14:29:41 [App     ] Build date: Nov 24 2025, 22:44:44
+14:29:41 [App     ] CPU: 13th Gen Intel(R) Core(TM) i9-13900H (20 cores)
+14:29:41 [App     ] RAM: 15.71GB Physical Memory 128.00TB Virtual Memory
+14:29:41 [App     ] OS: Windows 8 x64
+14:29:41 [App     ] Disk: 71.73GB (475.67GB) space
+14:29:41 [App     ] SSE & AVX compatible CPU & OS detected
+14:29:41 [App     ] Command line: InterfaceCOLMAP -i C:\Users\erkab\PycharmProjects\Photogrammetry_pipeline\data\workspace\sparse\0 -o C:\Users\erkab\PycharmProjects\Photogrammetry_pipeline\data\workspace\mvs\scene.mvs --image-folder C:\Users\erkab\Desktop\thesis_test\Datasets\Caterpillar -w C:\Users\erkab\PycharmProjects\Photogrammetry_pipeline\data\workspace\mvs
+14:29:41 [App     ] Reading cameras: C:/Users/erkab/PycharmProjects/Photogrammetry_pipeline/data/workspace/sparse/0/sparse/cameras.txt
+14:29:41 [App     ] Reading images: C:/Users/erkab/PycharmProjects/Photogrammetry_pipeline/data/workspace/sparse/0/sparse/images.txt
+14:29:43 [App     ] Reading points: C:/Users/erkab/PycharmProjects/Photogrammetry_pipeline/data/workspace/sparse/0/sparse/points3D.txt
+14:29:47 [App     ] Exported data: 383 images & 99553 vertices (6s470ms)
+14:29:47 [App     ] MEMORYINFO: {
+14:29:47 [App     ] 	PageFaultCount 15056
+14:29:47 [App     ] 	PeakWorkingSetSize 30.12MB
+14:29:47 [App     ] 	WorkingSetSize 7.99MB
+14:29:47 [App     ] 	QuotaPeakPagedPoolUsage 79.05KB
+14:29:47 [App     ] 	QuotaPagedPoolUsage 79.05KB
+14:29:47 [App     ] 	QuotaPeakNonPagedPoolUsage 11.16KB
+14:29:47 [App     ] 	QuotaNonPagedPoolUsage 10.90KB
+14:29:47 [App     ] 	PagefileUsage 2.62MB
+14:29:47 [App     ] 	PeakPagefileUsage 26.67MB
+14:29:47 [App     ] } ENDINFO

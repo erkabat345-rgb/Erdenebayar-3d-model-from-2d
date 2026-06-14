@@ -139,6 +139,8 @@ _MAX_DISPLAY_FACES = 300_000   # decimate above this to stay interactive
 
 
 def _build_overlay_text(metrics: dict) -> str:
+    if not metrics:
+        return "No metrics\n(dense_point_cloud.ply not present)"
     cd = metrics.get("chamfer_distance", 0.0)
     rmse_val = metrics.get("rmse", 0.0)
     n = metrics.get("n_samples", 0)

@@ -1,0 +1,33 @@
+16:16:27 [App     ] Build date: Nov 24 2025, 22:44:44
+16:16:27 [App     ] CPU: 13th Gen Intel(R) Core(TM) i9-13900H (20 cores)
+16:16:27 [App     ] RAM: 15.71GB Physical Memory 128.00TB Virtual Memory
+16:16:27 [App     ] OS: Windows 8 x64
+16:16:27 [App     ] Disk: 48.14GB (475.67GB) space
+16:16:27 [App     ] SSE & AVX compatible CPU & OS detected
+16:16:27 [App     ] Command line: ReconstructMesh C:\Users\erkab\PycharmProjects\Photogrammetry_pipeline\data\workspace\mvs\scene_dense.mvs
+16:16:29 [App     ] Scene loaded (1s290ms):
+	47 images (47 calibrated) with a total of 13.77 MPixels (0.29 MPixels/image)
+	779337 points, 0 vertices, 0 faces
+16:16:34 [App     ] Delaunay tetrahedralization completed: 779337 points -> 81777 vertices, 517598 (+246) cells, 1035319 (+369) faces (4s925ms)
+16:17:10 [App     ] Delaunay tetrahedras weighting completed: 517844 cells, 1035688 faces (35s998ms)
+16:17:11 [App     ] Delaunay tetrahedras graph-cut completed (644817 flow): 64028 vertices, 128108 faces (1s688ms)
+16:17:14 [App     ] Mesh reconstruction completed: 64041 vertices, 127986 faces (45s77ms)
+16:17:14 [App     ] Mesh trimmed to ROI: 0 vertices and 0 faces removed (7ms)
+16:17:15 [App     ] Cleaned mesh: 63919 vertices, 127788 faces (1s28ms)
+16:17:15 [App     ] Cleaned mesh: 63919 vertices, 127788 faces (583ms)
+16:17:16 [App     ] Cleaned mesh: 63919 vertices, 127788 faces (459ms)
+16:17:16 [App     ] Scene saved (184ms):
+	47 images (47 calibrated)
+	0 points, 63919 vertices, 127788 faces
+16:17:16 [App     ] Mesh saved: 63919 vertices, 127788 faces (34ms)
+16:17:16 [App     ] MEMORYINFO: {
+16:17:16 [App     ] 	PageFaultCount 156994
+16:17:16 [App     ] 	PeakWorkingSetSize 194.24MB
+16:17:16 [App     ] 	WorkingSetSize 15.89MB
+16:17:16 [App     ] 	QuotaPeakPagedPoolUsage 73.65KB
+16:17:16 [App     ] 	QuotaPagedPoolUsage 73.65KB
+16:17:16 [App     ] 	QuotaPeakNonPagedPoolUsage 12.49KB
+16:17:16 [App     ] 	QuotaNonPagedPoolUsage 11.43KB
+16:17:16 [App     ] 	PagefileUsage 10.21MB
+16:17:16 [App     ] 	PeakPagefileUsage 198.02MB
+16:17:16 [App     ] } ENDINFO
